@@ -45,7 +45,8 @@ struct PruebaView: View {
                 
             case .failure(_):
                 Text("❌ Error al cargar la imagen")
-                
+                    .foregroundColor(.blue)
+                    .font(.largeTitle)
             @unknown default:
                 EmptyView()
                 
