@@ -29,38 +29,31 @@ struct ContentView: View {
         .padding()
     }
 }
+
 import SwiftUI
 
-struct PruebaView: View {
+struct CoontentView: View {
+    @State private var mostrar = false // oculto
+
     var body: some View {
-        AsyncImage(url: URL(string: "https://images.macrumors.com/article-new/2025/02/WWDC-25-Feature-2.jpg")) { phase in
-            switch phase {
-            case .empty:
-                Text("Cargando imagen...")
-                
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFit()
-                
-            case .failure(_):
-                Text("❌ Error al cargar la imagen")
-                    .foregroundColor(.blue)
-                    .font(.largeTitle)
-            @unknown default:
-                EmptyView()
-                
-                
-            }
-            
+        AsyncImage(url: URL(string: "https://digitalassets-retail.cdn-apple.com//retail-image-server/a84/fcd/89e/9b7/734/de7/9fc/665/080/7bd/39452745-3f1f-385f-8942-fae06f0f557e_Apple_Park_Visitor_Center_Explore_04_medium_2x.jpg")) { image in
+            image
+                .resizable()
+                .scaledToFit()
+                .opacity(mostrar ? 1 : 0) // Si mostrar es true → se ve, si no → invisible
+                .onAppear {
+                    mostrar = true //Cuando la imagen aparece se cambia a visible
+                }
+        } placeholder: {
+            Text("La magia empieza...")
         }
-        
-        .frame(width: 600, height: 200)
+        .frame(width: 1000, height: 1000)
+        .animation(.easeIn(duration: 2), value: mostrar) // se va viendo suavemente
     }
-   
 }
 
 #Preview {
-    ContentView()
-    PruebaView()
+    CoontentView()
+   
+    
 }
